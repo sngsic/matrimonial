@@ -1,0 +1,38 @@
+nav {
+  margin: auto -16px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #222;
+  display:flex;
+ 
+}
+
+.login {
+  margin-right: 0;
+  margin-left: auto;
+  background-color: #eee;
+}
+
+button {
+  border: none;
+  color: #ddd;
+  font-weight:500;
+  font-size: 1.3em;
+  text-align: center;
+  padding: 5px 16px;
+  background-color: #222;
+}
+
+button:hover {
+  background-color: #222;
+  cursor: pointer;
+}
+
+#login {
+  margin-right: 0;
+}

@@ -1,0 +1,44 @@
+.name {
+    display: flex;
+    margin-bottom: 10px;
+    z-index: 1;
+}
+
+.password {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+form label {
+    min-width: 11vh;
+}
+
+/* form h2{
+    margin-left: 5%;;
+    margin-bottom:20px;
+    padding-bottom: 10px;
+    width:90%;
+    border-bottom:2px solid #aaa;
+} */
+
+form hr {
+    width: 90%;
+    margin-top: -10px;
+    ;
+}
+
+form {
+    text-align: center;
+    padding: 30px;
+    margin-top: 10%;
+    border-radius: 5px;
+    background-color: #ccc;
+}
+
+form button {
+    margin-top: 10px;
+    border-radius: 3px;
+    ;
+    background-color: #62a7e9;
+    color: #eee;
+}
