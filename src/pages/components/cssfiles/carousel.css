@@ -1,0 +1,12 @@
+.card {
+    border-radius: 10px;
+    flex-direction: column;
+    overflow:hidden;
+    word-wrap: break-word;
+    padding: 5px;
+}
+
+.card img{
+    border-radius: 10px;
+    
+}

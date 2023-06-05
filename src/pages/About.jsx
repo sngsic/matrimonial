@@ -8,7 +8,7 @@ function About(){
     return(
         <div>
             <Header title="About" />
-            <Nav />
+            <Nav/>
         </div>
     );
 }

@@ -2,9 +2,10 @@ import { useState, } from 'react';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { app } from './firebase.js';
 import "./cssfiles/login.css";
+import Header from "./Header.jsx";
+import Nav from './Nav.jsx';
 
 const auth = getAuth(app);
-
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -13,18 +14,24 @@ const Login = () => {
     createUserWithEmailAndPassword(auth, email, password).then(value => alert("success"));
   }
   return (
-    <div className='login-container'>
-      <form>
-        <div className='name'>
-          <label>Username </label>
-          <input onChange={(e) => setEmail(e.target.value)} value={email} type='text' placeholder='Email' required /><br></br>
+    <div>
+      <Header title="Login" />
+      <Nav islogin="true" />
+      <div>
+        <div className='login-container'>
+          <form>
+            <div className='name'>
+              <label>Username :</label>
+              <input onChange={(e) => setEmail(e.target.value)} value={email} type='text' required /><br></br>
+            </div>
+            <div className='password'>
+              <label>Password :</label>
+              <input onChange={(e) => setPassword(e.target.value)} value={password} type='password'/>
+            </div>
+            <button onClick={createUser}>Login</button>
+          </form>
         </div>
-        <div className='password'>
-          <label>Password </label>
-          <input onChange={(e) => setPassword(e.target.value)} value={password} type='password' placeholder='password' />
-        </div>
-        <button onClick={createUser}>Login</button>
-      </form>
+      </div>
     </div>
 
   );
