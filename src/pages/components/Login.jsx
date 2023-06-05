@@ -3,7 +3,7 @@ import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { app } from './firebase.js';
 import "./cssfiles/login.css";
 import Header from "./Header.jsx";
-import Nav from './Nav.jsx';
+import NaviBar from './NaviBar';
 
 const auth = getAuth(app);
 
@@ -16,7 +16,7 @@ const Login = () => {
   return (
     <div>
       <Header title="Login" />
-      <Nav islogin="true" />
+      <NaviBar/>
       <div>
         <div className='login-container'>
           <form>

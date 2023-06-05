@@ -1,5 +1,5 @@
 import React from "react";
-import Nav from "./components/Nav";
+import NaviBar from "./components/NaviBar";
 // import Card from "./components/Card"
 import Header from "./components/Header";
 
@@ -8,7 +8,7 @@ function About(){
     return(
         <div>
             <Header title="About" />
-            <Nav/>
+            <NaviBar/>
         </div>
     );
 }

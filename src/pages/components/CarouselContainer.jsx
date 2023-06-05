@@ -22,7 +22,7 @@ function CarouselContainer() {
                     <Card.Body>
                         <Card.Title style={{ padding: '5px' }}>Card Title</Card.Title>
                         <Card.Text style={{ padding: '5px' }}>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quaerat esse, ad amet, commodi maxime enim officia nisi molestias eveniet libero non tenetur quis sed cupiditate ex totam culpa. Eligendi?
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus possimus ea dolor voluptatem, nisi nemo minima, natus quasi error inventore repellat tempore iure dolore necessitatibus! Iusto amet magnam corrupti debitis.
                         </Card.Text>
                     </Card.Body>
                 </Card>
@@ -33,8 +33,7 @@ function CarouselContainer() {
                     <Card.Body>
                         <Card.Title style={{ padding: '5px' }}>Card Title</Card.Title>
                         <Card.Text style={{ padding: '5px' }}>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae quaerat esse, ad amet, commodi maxime enim officia nisi molestias eveniet libero non tenetur quis sed cupiditate ex totam culpa. Eligendi?
-                        </Card.Text>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis atque tenetur, facilis illo rerum sapiente optio. Cupiditate atque, maxime animi dolorem deserunt nostrum officiis quisquam modi ratione alias. Quam, culpa.                        </Card.Text>
                     </Card.Body>
                 </Card>
             </Carousel.Item>
