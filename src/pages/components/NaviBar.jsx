@@ -1,28 +1,24 @@
-// import React from "react";
-// import "./cssfiles/navbar.css";
-// import { Link } from "react-router-dom";
-
-// function Nav(props) {
-//     return (
-//         <nav>
-//             <ul>
-//                 {props.ishome !== "true" && <li><Link to="/"><button>Home</button></Link></li>}
-//                 <li><Link to="/about"><li><button>About</button></li></Link></li>
-//                 {props.islogin !== "true" && <li className="login"><Link to="/login"><button>Login</button></Link></li>}
-//             </ul>
-//         </nav>
-//     );
-// }
-
-// export default Nav;
-
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import AuthContext from '../../AuthContext';
+import { useContext } from 'react';
+import { auth } from '../../firebase';
+import { useNavigate } from 'react-router-dom';
+import './cssfiles/navbar.css';
+
 
 function NaviBar() {
+    const navigate = useNavigate();
+    const { isLogged, setIsLogged } = useContext(AuthContext);
+    const handleLogout = async () => {
+        await auth.signOut();
+        setIsLogged(false);
+        navigate('/home');
+    };
+
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar className='nav' bg="light" expand="lg">
             <Container>
                 <Navbar.Brand href="/">Matrimonial</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -30,7 +26,16 @@ function NaviBar() {
                     <Nav className="me-auto">
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/about">About</Nav.Link>
-                        <Nav.Link href="/login">Login</Nav.Link>
+                    </Nav>
+                    <Nav>
+                        {isLogged ? <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                            : (
+                                <>
+                                    <Nav.Link href="/login" className='sign-in-link'>Sign-In</Nav.Link>
+                                    <Nav.Link href='/register' className='sign-up-link'>Sign Up</Nav.Link>
+                                </>
+                            )}
+
                     </Nav>
                 </Navbar.Collapse>
             </Container>

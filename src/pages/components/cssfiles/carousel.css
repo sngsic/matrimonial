@@ -1,6 +1,6 @@
 .card {
     border-radius: 10px;
-    flex-direction:  ;
+    flex-direction:row;
     overflow:hidden;
     word-wrap: break-word;
     padding: 5px;

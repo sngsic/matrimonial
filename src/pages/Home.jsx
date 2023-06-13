@@ -4,12 +4,11 @@ import NaviBar from "./components/NaviBar";
 import CarouselContainer from "./components/CarouselContainer"
 import "./components/cssfiles/home.css"
 
-
 function Home() {
   return (
     <div>
       <Header title="Home" />
-      <NaviBar ishome="true" />
+      <NaviBar />
       <CarouselContainer />
     </div>
   );
