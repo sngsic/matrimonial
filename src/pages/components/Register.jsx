@@ -21,8 +21,7 @@ const Register = () => {
         email: email,
         password: password
       });
-      console.log('hello')
-      alert("Account created!");
+
       setEmail('');
       setPassword('');
       navigate('/login');
