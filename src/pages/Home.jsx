@@ -12,6 +12,6 @@ function Home() {
       <CarouselContainer />
     </div>
   );
-};
+}
 
 export default Home;
