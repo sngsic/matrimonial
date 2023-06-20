@@ -15,7 +15,7 @@ function Profile() {
             {/* ----------------------------------------------------------------------- */}
             <div class='profile-list'>
                 {data.map((profile) => (
-                <Card className="container">
+                <Card className="profile-container">
                     <Card.Img className = "profile-pic" variant="top" src={profile.IMG_PATH} />
                     <Card.Body>
                         <Card.Title style={{ padding: '5px' }}>Reg.No: {profile.REG_NO}</Card.Title>
