@@ -1,10 +1,10 @@
 import React, { useState, useContext} from 'react';
 import { useNavigate } from 'react-router-dom';
-import Header from "./Header.jsx";
-import NaviBar from './NaviBar.jsx';
-import "./cssfiles/register.css";
-import { auth } from '../../firebase.js';
-import AuthContext from '../../AuthContext.js';
+import Header from "./components/Header.jsx";
+import NaviBar from './components/NaviBar.jsx';
+import "./components/cssfiles/register.css";
+import { auth } from '../firebase.js';
+import AuthContext from '../AuthContext.js';
 
 
 const Login = () => {

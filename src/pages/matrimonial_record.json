@@ -1,0 +1,122 @@
+[
+    {
+        "REG_NO": "A101",
+        "NAME": "Parvathi",
+        "AGE": 21,
+        "MARTIAL_STATUS": "Un-Married",
+        "RELIGION": "Hindu",
+        "DISTRICT": "KANNUR"
+    },
+    {
+        "REG_NO": "A102",
+        "NAME": "Aatish",
+        "AGE": 24,
+        "MARTIAL_STATUS": "Un-Married",
+        "RELIGION": "Hindu",
+        "DISTRICT": "KANNUR"
+    },
+    {
+        "REG_NO": "A103",
+        "NAME": "Smijith",
+        "AGE": 24,
+        "MARTIAL_STATUS": "Un-Married",
+        "RELIGION": "Hindu",
+        "DISTRICT": "KANNUR"
+    },
+    {
+        "REG_NO": "A104",
+        "NAME": "Vishak",
+        "AGE": 31,
+        "MARTIAL_STATUS": "Un-Married",
+        "RELIGION": "Hindu",
+        "DISTRICT": "KANNUR"
+    },
+    {
+        "REG_NO": "A105",
+        "NAME": "Vyshak",
+        "AGE": 28,
+        "MARTIAL_STATUS": "Un-Married",
+        "RELIGION": "Hindu",
+        "DISTRICT": "KANNUR"
+    },
+    {
+        "REG_NO": "A106",
+        "NAME": "Sreelakshmi",
+        "AGE": 19,
+        "MARTIAL_STATUS": "Un-Married",
+        "RELIGION": "Hindu",
+        "DISTRICT": "KANNUR"
+    },
+    {
+        "REG_NO": "A107",
+        "NAME": "Rithika",
+        "AGE": 21,
+        "MARTIAL_STATUS": "Un-Married",
+        "RELIGION": "Hindu",
+        "DISTRICT": "KANNUR"
+    },
+    {
+        "REG_NO": "A108",
+        "NAME": "Aswathi",
+        "AGE": 20,
+        "MARTIAL_STATUS": "Un-Married",
+        "RELIGION": "Hindu",
+        "DISTRICT": "KANNUR"
+    },
+    {
+        "REG_NO": "A109",
+        "NAME": "Kavya",
+        "AGE": 27,
+        "MARTIAL_STATUS": "Widowed",
+        "RELIGION": "Hindu",
+        "DISTRICT": "KANNUR"
+    },
+    {
+        "REG_NO": "A110",
+        "NAME": "Abhinav",
+        "AGE": 24,
+        "MARTIAL_STATUS": "Un-Married",
+        "RELIGION": "Hindu",
+        "DISTRICT": "KANNUR"
+    },
+    {
+        "REG_NO": "A111",
+        "NAME": "Navya",
+        "AGE": 20,
+        "MARTIAL_STATUS": "Un-Married",
+        "RELIGION": "Hindu",
+        "DISTRICT": "KANNUR"
+    },
+    {
+        "REG_NO": "A112",
+        "NAME": "Bhavya",
+        "AGE": 26,
+        "MARTIAL_STATUS": "Un-Married",
+        "RELIGION": "Hindu",
+        "DISTRICT": "KANNUR"
+    },
+    {
+        "REG_NO": "A113",
+        "NAME": "Bhavana",
+        "AGE": 35,
+        "MARTIAL_STATUS": "Divorced",
+        "RELIGION": "Hindu",
+        "DISTRICT": "KANNUR"
+    },
+    {
+        "REG_NO": "A114",
+        "NAME": "Manju",
+        "AGE": 28,
+        "MARTIAL_STATUS": "Un-Married",
+        "RELIGION": "Hindu",
+        "DISTRICT": "KANNUR"
+    },
+    {
+        "REG_NO": "A115",
+        "NAME": "Rincy",
+        "AGE": 22,
+        "MARTIAL_STATUS": "Un-Married",
+        "RELIGION": "Hindu",
+        "DISTRICT": "KANNUR"
+    }
+]
