@@ -1,0 +1,18 @@
+Footer {
+  background-color: #37B9F1;
+  padding: 1px 20px;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.3);
+  color: #ddd;
+  cursor: default;
+
+}
+
+footer h1 {
+  font-size: 50px;
+  text-align: center;
+}
+
+.foot {
+  margin-top: auto;
+  margin-bottom: 0;
+}

@@ -1,7 +1,9 @@
 .profile-list {
+    display: flex;
     grid-gap: 10px;
     max-width: fit-content;
     max-height: min-content;
+    justify-content: center;
 }
 
 @media (min-width: 320px) {
@@ -13,8 +15,8 @@
 
 @media (min-width: 769px) {
     .profile-list {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
     }
 }
 
@@ -25,7 +27,7 @@
     overflow: hidden;
 }
 
-.profile-container{
+/* .profile-container{
     max-width:230px;
     max-height: 400px;
-}
+} */

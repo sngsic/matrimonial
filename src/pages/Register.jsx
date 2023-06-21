@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Header from "./components/Header.jsx";
 import NaviBar from './components/NaviBar.jsx';
+import Footer from './components/footer.jsx';
 import "./components/cssfiles/register.css";
 import { firestore, auth } from '../firebase.js';
 import { useNavigate } from 'react-router-dom';
@@ -54,9 +55,9 @@ const Register = () => {
             <br />
             <label id='info'>Nil</label>
           </form>
-
         </div>
       </div>
+      <Footer title="&copy;SBSY" />
     </div>
   );
 }
