@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import NaviBar from './components/NaviBar';
 import Header from "./components/Header";
-import Footer from './components/footer';
+// import Footer from './components/footer';
 import "./components/cssfiles/footer.css";
 import { firestore, auth } from '../firebase.js';
 import { useNavigate } from 'react-router-dom';
@@ -21,15 +21,15 @@ function Register1() {
   const [caste, setCaste] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [district, setDistrict] = useState("");
 
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const { user } = await auth.createUserWithEmailAndPassword(email, password);
-      alert(user.uid);
-      await firestore.collection('users').doc("user1").set({
+      await firestore.collection('users').doc(user.uid).set({
         forwho: forwho,
         name: name,
         gender: gender,
@@ -38,7 +38,8 @@ function Register1() {
         caste: caste,
         email: email,
         dob:dob,
-        password: password
+        password: password,
+        district:district
       });
 
       navigate('/login');
@@ -80,8 +81,11 @@ function Register1() {
             </Form.Group>
           </Row>
           <Row className="mb-3">
-            
-            <Form.Group as={Col} controlId="validationCustom03">
+            <Form.Group as={Col} controlId='validationCudtom01'>
+              <Form.Label>District</Form.Label>
+              <Form.Control type='text' required onChange={(e)=>setDistrict(e.target.value)} />
+            </Form.Group>
+            <Form.Group as={Col} controlId="validationCustom02">
               <Form.Label>Date of Birth</Form.Label>
               <Form.Control type="date" placeholder="Day" onChange={(e) => setDob(e.target.value)} />
             </Form.Group>
@@ -146,7 +150,7 @@ function Register1() {
       </div>
       <br />
       <br />
-      <Footer title="&copy;SBSY" />
+      {/* <Footer title="&copy;SBSY" /> */}
     </div>
   );
 }
