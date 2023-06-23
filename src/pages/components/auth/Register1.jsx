@@ -3,11 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
-import NaviBar from './components/NaviBar';
-import Header from "./components/Header";
+import NaviBar from "../NaviBar" //'../components/NaviBar';
+import Header from "../Header";
 // import Footer from './components/footer';
-import "./components/cssfiles/footer.css";
-import { firestore, auth } from '../firebase.js';
+// import "./components/cssfiles/footer.css";
+import { firestore, auth } from '../../../firebase.js';
 import { useNavigate } from 'react-router-dom';
 
 function Register1() {
@@ -129,14 +129,14 @@ function Register1() {
           <Row>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)} />
+              <Form.Control type="email" placeholder="Enter email" required onChange={(e) => setEmail(e.target.value)} />
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
               </Form.Text>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+              <Form.Control type="password" required placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
             </Form.Group>
           </Row>
           <Form.Group className="mb-3">

@@ -1,21 +1,32 @@
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import AuthContext from '../../AuthContext';
-import { useContext } from 'react';
 import { auth } from '../../firebase';
 import { useNavigate } from 'react-router-dom';
 import './cssfiles/navbar.css';
+import React, { useEffect, useState } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
 
 
 function NaviBar() {
     const navigate = useNavigate();
-    const { isLogged, setIsLogged } = useContext(AuthContext);
     const handleLogout = async () => {
         await auth.signOut();
-        setIsLogged(false);
         navigate('/home');
     };
+
+    const [authUser, setAuthUser] = useState(null);
+
+    useEffect(() => {
+        const listen = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setAuthUser(user)
+            }
+            else {
+                setAuthUser(null);
+            }
+        })
+    }, [])
 
     return (
         <Navbar className='nav' bg="light" expand="lg">
@@ -28,13 +39,15 @@ function NaviBar() {
                         <Nav.Link href="/profiles">Profiles</Nav.Link>
                     </Nav>
                     <Nav>
-                        {isLogged ? <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
-                            : (
-                                <>
-                                    <Nav.Link href="/login" className='sign-in-link'>Sign-In</Nav.Link>
-                                    <Nav.Link href='/register' className='sign-up-link'>Sign Up</Nav.Link>
-                                </>
-                            )}
+                        {authUser ?
+                            <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                            :
+                            <>
+                                <Nav.Link href="/login" className='sign-in-link'>Sign-In</Nav.Link>
+                                <Nav.Link href='/register' className='sign-up-link'>Sign Up</Nav.Link>
+                            </>
+                        }
+
 
                     </Nav>
                 </Navbar.Collapse>

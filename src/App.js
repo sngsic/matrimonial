@@ -3,11 +3,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";// Switch, Link, Redirect 
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
-import Register1 from "./pages/Register1.jsx";
-import Login from "./pages/Login.jsx";
+import Register1 from "./pages/components/auth/Register1.jsx";
+import Login from "./pages/components/auth/Login.jsx";
 import { AuthProvider } from "./AuthContext.js";
 import Profile from "./pages/Profile.jsx";
-
 
 function App() {
   return (
