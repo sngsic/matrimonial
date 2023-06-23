@@ -5,13 +5,11 @@ import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
 import Register from "./pages/components/auth/Register.jsx";
 import Login from "./pages/components/auth/Login.jsx";
-import { AuthProvider } from "./AuthContext.js";
 import Profile from "./pages/Profile.jsx";
 
 function App() {
   return (
     <div className="App">
-      <AuthProvider>
         <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
@@ -22,7 +20,6 @@ function App() {
           <Route path="/profiles" element={<Profile />} />
         </Routes>
       </BrowserRouter>
-      </AuthProvider>
     </div>
   );
 }

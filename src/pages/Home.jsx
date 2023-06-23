@@ -8,14 +8,13 @@ import "./components/cssfiles/home.css"
 import "./components/cssfiles/footer.css";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
-import { Button } from "react-bootstrap";
 
 
 function Home() {
   const [authUser, setAuthUser] = useState(null);
   const navigate = useNavigate();
   useEffect(() => {
-    const listen = onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
       if (user) {
         setAuthUser(user)
       }
@@ -35,10 +34,7 @@ function Home() {
       </div>
     );
   } else {
-    return (<div>Login to continue
-      {navigate('/login')}
-    </div>
-    )
+      navigate('/login')
   }
 }
 export default Home;

@@ -1,6 +1,4 @@
 // this is only a reference for session data storage example, add the function useEffect in any page that requires login and modify accordicgly
-
-
 import React, { useState, useEffect } from "react";
 import { auth } from "../../firebase";
 import { onAuthStateChanged } from "firebase/auth"
@@ -10,7 +8,7 @@ function AuthDetails() {
     const [authUser, setAuthUser] = useState(null);
 
     useEffect(() => {
-        const listen = onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, (user) => {
             if (user) {
                 setAuthUser(user)
             }

@@ -1,9 +1,16 @@
+.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .card {
     border-radius: 10px;
     flex-direction:column;
     overflow:hidden;
     word-wrap: break-word;
     padding: 5px;
+    /* max-height: 80vh;
+    max-width: 80vw; */
 }
 
 .card img{

@@ -72,7 +72,7 @@ function Register() {
     try {
       const { user } = await auth.createUserWithEmailAndPassword(email, password);
       if (user) {
-        await firestore.collection('users').doc(user.uid).set({
+        await firestore.collection('users').doc(name).set({
           forwho: forwho,
           name: name,
           gender: gender,
@@ -84,7 +84,7 @@ function Register() {
           password: password,
           district: district,
         });
-        navigate('/login');
+        navigate('/home');
       }
     } catch (error) {
       alert(error.message);
