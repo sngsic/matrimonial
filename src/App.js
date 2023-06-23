@@ -3,7 +3,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";// Switch, Link, Redirect 
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
-import Register1 from "./pages/components/auth/Register1.jsx";
+import Register from "./pages/components/auth/Register.jsx";
 import Login from "./pages/components/auth/Login.jsx";
 import { AuthProvider } from "./AuthContext.js";
 import Profile from "./pages/Profile.jsx";
@@ -18,7 +18,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path='/login' element={<Login />} />
-          <Route path="/register" element={<Register1 />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/profiles" element={<Profile />} />
         </Routes>
       </BrowserRouter>
