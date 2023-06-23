@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import { useNavigate } from "react-router-dom";
 import NaviBar from "./components/NaviBar";
@@ -8,6 +8,7 @@ import "./components/cssfiles/home.css"
 import "./components/cssfiles/footer.css";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase";
+import { Button } from "react-bootstrap";
 
 
 function Home() {
@@ -33,9 +34,11 @@ function Home() {
         <Footer title="&copy;SBSY" />
       </div>
     );
-  }
-  else{
-    navigate('/login')
+  } else {
+    return (<div>Login to continue
+      {navigate('/login')}
+    </div>
+    )
   }
 }
 export default Home;
