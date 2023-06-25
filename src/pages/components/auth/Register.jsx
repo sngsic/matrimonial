@@ -7,11 +7,14 @@ import NaviBar from "../NaviBar" //'../components/NaviBar';
 import Header from "../Header";
 // import Footer from './components/footer';
 // import "./components/cssfiles/footer.css";
-import { firestore, auth } from '../../../firebase.js';
+// import { firestore, auth } from '../../../firebase.js';
 import { useNavigate } from 'react-router-dom';
+import { signup } from './dbmanager';
+
 
 function Register() {
   const navigate = useNavigate();
+  const [pic,setPic] = useState('');
   const [forwho, setForwho] = useState('');
   const [name, setName] = useState('');
   const [gender, setGender] = useState('');
@@ -62,33 +65,34 @@ function Register() {
     const birthDate = new Date(dob);
     const age = today.getFullYear() - birthDate.getFullYear();
     const isMale = gender === 'Male';
-  
-    if ((isMale && age <= 22) || (!isMale && age <= 18)) {
+
+    if ((isMale && age <= 21) || (!isMale && age <= 18)) {
       alert(`Age should be ${isMale ? 'greater than 22' : 'greater than 18'} for the selected gender.`);
       return;
     }
-    
 
-    try {
-      const { user } = await auth.createUserWithEmailAndPassword(email, password);
-      if (user) {
-        await firestore.collection('users').doc(name).set({
-          forwho: forwho,
-          name: name,
-          gender: gender,
-          maritalStatus: maritalStatus,
-          religion: religion,
-          caste: caste,
-          email: email,
-          dob: dob,
-          password: password,
-          district: district,
-        });
-        navigate('/home');
-      }
-    } catch (error) {
-      alert(error.message);
-    }
+    signup(e,forwho,name,dob,email,password,district,caste,maritalStatus,religion,gender);
+    navigate('/home');
+    // try {
+    //   const { user } = await auth.createUserWithEmailAndPassword(email, password);
+    //   if (user) {
+    //     await firestore.collection('users').doc(name).set({
+    //       forwho: forwho,
+    //       name: name,
+    //       gender: gender,
+    //       maritalStatus: maritalStatus,
+    //       religion: religion,
+    //       caste: caste,
+    //       email: email,
+    //       dob: dob,
+    //       password: password,
+    //       district: district,
+    //     });
+    //     navigate('/home');
+    //   }
+    // } catch (error) {
+    //   alert(error.message);
+    // }
   };
 
 
@@ -99,6 +103,7 @@ function Register() {
       <div className="container">
         <Form onSubmit={handleSubmit}>
           <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLUx1aPDg3Tei2_2-d_Br_LVOFBqmSq3vGBg&usqp=CAU' className='img-fluid shadow-4' alt='...' />
+          
           <Row className="mb-3">
             <Form.Group as={Col} md="4" controlId="validationCustom01">
               <Form.Label>For</Form.Label>
@@ -127,7 +132,7 @@ function Register() {
           <Row className="mb-3">
             <Form.Group as={Col} controlId='validationCudtom01'>
               <Form.Label>District</Form.Label>
-              <Form.Control required type='text' onChange={(e)=>setDistrict(e.target.value)} />
+              <Form.Control required type='text' onChange={(e) => setDistrict(e.target.value)} />
             </Form.Group>
             <Form.Group as={Col} controlId="validationCustom02">
               <Form.Label>Date of Birth</Form.Label>
@@ -135,7 +140,7 @@ function Register() {
             </Form.Group>
             <Form.Group as={Col} controlId='validationCustom03'>
               <Form.Label>Mobile Number</Form.Label>
-              <Form.Control required type='tel' pattern="[0-9]{10}" placeholder="Mobile" onChange={(e) => setDob(e.target.value)}/>
+              <Form.Control required type='tel' pattern="[0-9]{10}" placeholder="Mobile" onChange={(e) => setDob(e.target.value)} />
             </Form.Group>
           </Row>
           <Row className="mb-3">
@@ -174,14 +179,14 @@ function Register() {
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control required type="email" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)} />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control required type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
             </Form.Group>
+            <Form.Text className="text-muted">
+              We'll never share your email with anyone else.
+            </Form.Text>
           </Row>
           <Form.Group className="mb-3">
             <Form.Label>

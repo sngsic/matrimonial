@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
 import NaviBar from "./components/NaviBar";
-// import Footer from "./components/footer";
 import { Card } from "react-bootstrap";
 import "./components/cssfiles/profiles.css";
 import "./components/cssfiles/footer.css";
 import firebase from '../firebase';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Profile() {
     const [data, setData] = useState([]);
@@ -50,26 +50,26 @@ function Profile() {
         <div>
             <Header title="Profiles" />
             <NaviBar />
-            <div id="profile-windows">
-                <div className='profile-list'>
-                    {data.map((profile) => (
-                        <Card key={profile.REG_NO} className="profile-container">
-                            <Card.Img className="profile-pic" variant="top" src="" />
-                            <Card.Body>
-                                <Card.Title style={{ padding: '5px' }}>Reg.No:</Card.Title>
-                                <hr />
-                                <Card.Text className='profile-content' style={{ padding: '5px' }}>
-                                    Name          : {profile.name} <br />
-                                    Age           : {calculateAge(profile.dob)}<br />
-                                    Status        : {profile.martialStatus}<br />
-                                    Religion      : {profile.religion}<br />
-                                    District      : {profile.district}
-                                </Card.Text>
-                            </Card.Body>
-                        </Card>
-                    ))}
-                </div>
+
+            <div className='profile-list'>
+                {data.map((profile) => (
+                    <Card  className="profile-container">
+                        <Card.Img className="rounded-circle" variant="top" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" />
+                        <Card.Body>
+                            <Card.Title style={{ padding: '5px' }}>Reg.No:</Card.Title>
+                            <hr />
+                            <Card.Text className='profile-content' style={{ padding: '5px' }}>
+                                Name          : {profile.name} <br />
+                                Age           : {calculateAge(profile.dob)}<br />
+                                Status        : {profile.martialStatus}<br />
+                                Religion      : {profile.religion}<br />
+                                District      : {profile.district}
+                            </Card.Text>
+                        </Card.Body>
+                    </Card>
+                ))}
             </div>
+
             {/* <Footer title="&copy;SBSY" /> */}
         </div>
     );

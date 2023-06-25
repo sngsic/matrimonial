@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import Header from "../Header.jsx";
 import NaviBar from '../NaviBar.jsx';
 import "../cssfiles/register.css";
-import { auth } from '../../../firebase.js';
+// import { auth } from '../../../firebase.js';
 import Form from "react-bootstrap/Form";
 import { Button } from 'react-bootstrap';
+import signin from './dbmanager.js';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -13,14 +14,16 @@ const Login = () => {
     const [password, setPassword] = useState("");
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        signin(e,email,password);
+        navigate("/home")
+        // e.preventDefault();
 
-        try {
-            await auth.signInWithEmailAndPassword(email, password);
-            navigate('/home');
-        } catch (error) {
-            alert("Invalid credentials");
-        }
+        // try {
+        //     await auth.signInWithEmailAndPassword(email, password);
+        //     navigate('/home');
+        // } catch (error) {
+        //     alert("Invalid credentials");
+        // }
     }
 
     return (

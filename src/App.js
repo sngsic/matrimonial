@@ -6,6 +6,7 @@ import About from "./pages/About.jsx";
 import Register from "./pages/components/auth/Register.jsx";
 import Login from "./pages/components/auth/Login.jsx";
 import Profile from "./pages/Profile.jsx";
+import UserProfile from "./pages/UserProfile.jsx";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profiles" element={<Profile />} />
+          <Route path="/user" element={<UserProfile />} />
         </Routes>
       </BrowserRouter>
     </div>

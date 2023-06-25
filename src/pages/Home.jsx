@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import NaviBar from "./components/NaviBar";
 import Footer from "./components/footer";
 import CarouselContainer from "./components/CarouselContainer"
@@ -12,7 +12,7 @@ import { auth } from "../firebase";
 
 function Home() {
   const [authUser, setAuthUser] = useState(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -34,7 +34,12 @@ function Home() {
       </div>
     );
   } else {
-      navigate('/login')
+      return(
+        <div>
+          <center><Header title="Login to continue"/></center>
+          <NaviBar />
+        </div>
+      )
   }
 }
 export default Home;

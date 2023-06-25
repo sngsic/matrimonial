@@ -29,7 +29,7 @@ function NaviBar() {
     }, [])
 
     return (
-        <Navbar className='nav' bg="light" expand="lg">
+        <Navbar sticky='top' className='nav' bg="light" expand="lg">
             <Container>
                 <Navbar.Brand href="/home">Matrimonial</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
