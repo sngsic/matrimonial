@@ -6,13 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import './cssfiles/navbar.css';
 import React, { useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
+import 'bootstrap/dist/css/bootstrap.css';
 
 
 function NaviBar() {
     const navigate = useNavigate();
     const handleLogout = async () => {
         await auth.signOut();
-        navigate('/home');
+        navigate('/profiles');
     };
 
     const [authUser, setAuthUser] = useState(null);
@@ -40,7 +41,20 @@ function NaviBar() {
                     </Nav>
                     <Nav>
                         {authUser ?
+                        <>
                             <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                                <Container>
+                                    <Navbar.Brand href="/user">
+                                        <img
+                                            src="https://cdn3.iconfinder.com/data/icons/user-interface-2343/256/profile_photo.png"
+                                            width="30"
+                                            height="30"
+                                            className="d-inline-block align-top"
+                                            alt="React Bootstrap logo"
+                                        />
+                                    </Navbar.Brand>
+                                </Container>
+                        </>
                             :
                             <>
                                 <Nav.Link href="/login" className='sign-in-link'>Sign-In</Nav.Link>

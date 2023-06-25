@@ -26,8 +26,8 @@ function Register1() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
+      localStorage.setItem("email",email);
       const { user } = await auth.createUserWithEmailAndPassword(email, password);
       await firestore.collection('users').doc(user.uid).set({
         forwho: forwho,

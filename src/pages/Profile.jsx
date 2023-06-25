@@ -6,8 +6,10 @@ import "./components/cssfiles/profiles.css";
 import "./components/cssfiles/footer.css";
 import firebase from '../firebase';
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
+    const navigate = useNavigate();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -46,6 +48,9 @@ function Profile() {
         return age;
     }
 
+    function handleprofileclick(){
+        navigate("/user");
+    }
     return (
         <div>
             <Header title="Profiles" />
@@ -53,17 +58,17 @@ function Profile() {
 
             <div className='profile-list'>
                 {data.map((profile) => (
-                    <Card  className="profile-container">
-                        <Card.Img className="rounded-circle" variant="top" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" />
+                    <Card  className="profile-container" onClick={handleprofileclick}>
+                        <Card.Img className="rounded-circle" variant="top" src= {profile.Image} /> //"https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" />
                         <Card.Body>
                             <Card.Title style={{ padding: '5px' }}>Reg.No:</Card.Title>
                             <hr />
                             <Card.Text className='profile-content' style={{ padding: '5px' }}>
-                                Name          : {profile.name} <br />
-                                Age           : {calculateAge(profile.dob)}<br />
-                                Status        : {profile.martialStatus}<br />
-                                Religion      : {profile.religion}<br />
-                                District      : {profile.district}
+                                Name          : {profile.Name} <br />
+                                Age           : {calculateAge(profile.DoB)}<br />
+                                Status        : {profile.MartialStatus}<br />
+                                Occupation    : {profile.Occupation}<br />
+                                District      : {profile.District}
                             </Card.Text>
                         </Card.Body>
                     </Card>

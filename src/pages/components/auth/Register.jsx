@@ -10,21 +10,24 @@ import Header from "../Header";
 // import { firestore, auth } from '../../../firebase.js';
 import { useNavigate } from 'react-router-dom';
 import { signup } from './dbmanager';
-
+import { Link } from 'react-router-dom';
+import { Card } from 'react-bootstrap';
 
 function Register() {
   const navigate = useNavigate();
-  const [pic,setPic] = useState('');
+  // const [pic,setPic] = useState('');
   const [forwho, setForwho] = useState('');
   const [name, setName] = useState('');
   const [gender, setGender] = useState('');
   const [dob, setDob] = useState('');
   const [maritalStatus, setMaritalStatus] = useState('');
-  const [religion, setReligion] = useState('');
+  const [occupation, setOccupation] = useState('');
   const [caste, setCaste] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [district, setDistrict] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [image,setImage] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +38,7 @@ function Register() {
       gender.trim() === '' ||
       dob.trim() === '' ||
       maritalStatus.trim() === '' ||
-      religion.trim() === '' ||
+      occupation.trim() === '' ||
       caste.trim() === '' ||
       email.trim() === '' ||
       password.trim() === '' ||
@@ -71,30 +74,17 @@ function Register() {
       return;
     }
 
-    signup(e,forwho,name,dob,email,password,district,caste,maritalStatus,religion,gender);
+    signup(e, forwho, name, dob, email, password, district, caste, maritalStatus, gender, occupation,image);
+    localStorage.setItem("email",email);
     navigate('/home');
-    // try {
-    //   const { user } = await auth.createUserWithEmailAndPassword(email, password);
-    //   if (user) {
-    //     await firestore.collection('users').doc(name).set({
-    //       forwho: forwho,
-    //       name: name,
-    //       gender: gender,
-    //       maritalStatus: maritalStatus,
-    //       religion: religion,
-    //       caste: caste,
-    //       email: email,
-    //       dob: dob,
-    //       password: password,
-    //       district: district,
-    //     });
-    //     navigate('/home');
-    //   }
-    // } catch (error) {
-    //   alert(error.message);
-    // }
+    
   };
-
+  
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    setSelectedImage(file);
+    setImage(file);
+  };
 
   return (
     <div>
@@ -102,9 +92,26 @@ function Register() {
       <NaviBar />
       <div className="container">
         <Form onSubmit={handleSubmit}>
-          <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLUx1aPDg3Tei2_2-d_Br_LVOFBqmSq3vGBg&usqp=CAU' className='img-fluid shadow-4' alt='...' />
-          
+          <br />
+          <h3>Register</h3>
+          <br />
+          {/* <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLUx1aPDg3Tei2_2-d_Br_LVOFBqmSq3vGBg&usqp=CAU' className='img-fluid shadow-4' alt='...' /> */}
+          <Row>
+            <Card>
+              <Card.Body>
+                <Card.Img className="myimg container" variant="rounded" src={selectedImage ? URL.createObjectURL(selectedImage) : ""} />
+                <Form.Group controlId="formFile" className="mb-3">
+                  <Form.Label>Upload Image</Form.Label>
+                  <Form.Control type="file" accept="image/*" onChange={handleImageUpload} />
+                </Form.Group>
+              </Card.Body>
+            </Card>
+          </Row>
           <Row className="mb-3">
+            <Form.Group as={Col} md="4" controlId="validationCustom02">
+              <Form.Label>Name</Form.Label>
+              <Form.Control type="text" required onChange={(e) => setName(e.target.value)} />
+            </Form.Group>
             <Form.Group as={Col} md="4" controlId="validationCustom01">
               <Form.Label>For</Form.Label>
               <Form.Select value={forwho} defaultValue="Choose..." onChange={(e) => setForwho(e.target.value)}>
@@ -116,10 +123,7 @@ function Register() {
                 <option>Friend</option>
               </Form.Select>
             </Form.Group>
-            <Form.Group as={Col} md="4" controlId="validationCustom02">
-              <Form.Label>Name</Form.Label>
-              <Form.Control type="text" placeholder="First name" required onChange={(e) => setName(e.target.value)} />
-            </Form.Group>
+
             <Form.Group as={Col} md="4" controlId="validationCustomUsername">
               <Form.Label>Gender</Form.Label>
               <Form.Select required defaultValue="Choose..." onChange={(e) => setGender(e.target.value)}>
@@ -136,14 +140,18 @@ function Register() {
             </Form.Group>
             <Form.Group as={Col} controlId="validationCustom02">
               <Form.Label>Date of Birth</Form.Label>
-              <Form.Control required type="date" placeholder="Day" onChange={(e) => setDob(e.target.value)} />
+              <Form.Control required type="date" onChange={(e) => setDob(e.target.value)} />
             </Form.Group>
             <Form.Group as={Col} controlId='validationCustom03'>
               <Form.Label>Mobile Number</Form.Label>
-              <Form.Control required type='tel' pattern="[0-9]{10}" placeholder="Mobile" onChange={(e) => setDob(e.target.value)} />
+              <Form.Control required type='tel' pattern="[0-9]{10}" onChange={(e) => setDob(e.target.value)} />
             </Form.Group>
           </Row>
           <Row className="mb-3">
+            <Form.Group as={Col} md="4" controlId="validationCustom02">
+              <Form.Label>Occupation</Form.Label>
+              <Form.Control required onChange={(e) => setOccupation(e.target.value)} />
+            </Form.Group>
             <Form.Group as={Col} md="4" controlId="validationCustom01">
               <Form.Label>Marital Status</Form.Label>
               <Form.Select required defaultValue="Choose..." onChange={(e) => setMaritalStatus(e.target.value)}>
@@ -151,15 +159,6 @@ function Register() {
                 <option>Divorced</option>
                 <option>Widowed</option>
                 <option>Un-Married</option>
-              </Form.Select>
-            </Form.Group>
-            <Form.Group as={Col} md="4" controlId="validationCustom02">
-              <Form.Label>Religion</Form.Label>
-              <Form.Select required defaultValue="Choose..." onChange={(e) => setReligion(e.target.value)}>
-                <option>--SELECT--</option>
-                <option>Hindu</option>
-                <option>Christian</option>
-                <option>Muslim</option>
               </Form.Select>
             </Form.Group>
             <Form.Group as={Col} md="4" controlId="validationCustomUsername">
@@ -172,9 +171,7 @@ function Register() {
               </Form.Select>
             </Form.Group>
           </Row>
-          <br />
-          <h3>Register</h3>
-          <br />
+          <br /><hr />
           <Row>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
@@ -194,11 +191,15 @@ function Register() {
               <Form.Check required feedback="You must agree before submitting." feedbackType="invalid" />
             </Form.Label>
           </Form.Group>
-          <Button type="submit">Register Now</Button>
+          <hr />
+          <Button type="submit">Register Now</Button><br />
+          <p>Already have an account? <Link style={{textDecoration : "none"}} to="/login">Login</Link></p>
         </Form>
       </div>
       <br />
       <br />
+      <hr />
+      
       {/* <Footer title="&copy;SBSY" /> */}
     </div>
   );

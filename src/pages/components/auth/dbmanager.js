@@ -8,21 +8,21 @@ const signin = async (e,email,password) => {
     }
 }
 
-const signup = async (e,forwho,name,dob,email,password,district,caste,maritalStatus,religion,gender) => {
+export const signup = async (e,forwho,name,dob,email,password,district,caste,maritalStatus,gender,occupation,image) => {
     try {
         const { user } = await auth.createUserWithEmailAndPassword(email, password);
         if (user) {
             await firestore.collection('users').doc(name).set({
-                forwho: forwho,
-                name: name,
-                gender: gender,
-                maritalStatus: maritalStatus,
-                religion: religion,
-                caste: caste,
-                email: email,
-                dob: dob,
-                password: password,
-                district: district,
+                ForWho: forwho,
+                Name: name,
+                Gender: gender,
+                MaritalStatus: maritalStatus,
+                Caste: caste,
+                Email: email,
+                DoB: dob,
+                District: district,
+                Occupation: occupation,
+                Image: image
             });
             
         }
@@ -31,5 +31,22 @@ const signup = async (e,forwho,name,dob,email,password,district,caste,maritalSta
     }
 }
 
-export {signup};
 export default signin;
+// export const getUserDataByEmail = async (email) => {
+//     try {
+//         const querySnapshot = await firestore.collection('users').where('email', '==', email).get();
+//         console.log(querySnapshot)
+//         if (!querySnapshot.empty) {
+//             const userData = querySnapshot.docs[0].data();
+//             const name = userData.name; // Retrieve the name from the userData object
+//             return name;
+//         }
+
+//         return null; // User not found
+//     } catch (error) {
+//         throw new Error('Failed to fetch user data.');
+//     }
+// };
+
+
+
