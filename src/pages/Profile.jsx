@@ -8,6 +8,7 @@ import firebase from '../firebase';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 
+
 function Profile() {
     const navigate = useNavigate();
     const [data, setData] = useState([]);
@@ -48,8 +49,12 @@ function Profile() {
         return age;
     }
 
-    function handleprofileclick(){
-        navigate("/user");
+    function handleprofileclick() {
+        if (localStorage.getItem("email")) {
+            navigate("/user");
+        } else {
+            alert("You need to be logged in to view this profile.");
+        }
     }
     return (
         <div>
@@ -59,9 +64,8 @@ function Profile() {
             <div className='profile-list'>
                 {data.map((profile) => (
                     <Card  className="profile-container" onClick={handleprofileclick}>
-                        <Card.Img className="rounded-circle" variant="top" src= {profile.Image} /> 
-                        <Card.Body>
-                            {/* "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" />} */}
+                        <Card.Img className="rounded-circle" variant="top" src={profile.DownloadURL || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"} /> 
+                        <Card.Body >
                             <Card.Title style={{ padding: '5px' }}>Reg.No:</Card.Title>
                             <hr />
                             <Card.Text className='profile-content' style={{ padding: '5px' }}>

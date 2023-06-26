@@ -11,9 +11,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 function NaviBar() {
     const navigate = useNavigate();
+    // const currrUser = localStorage.getItem("email");
     const handleLogout = async () => {
         await auth.signOut();
         navigate('/profiles');
+        localStorage.clear();
     };
 
     const [authUser, setAuthUser] = useState(null);

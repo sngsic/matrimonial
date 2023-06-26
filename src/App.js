@@ -35,6 +35,7 @@ function App() {
           <Route path="/about"    element={<About />} />
           <Route path="/profiles" element={<Profile />} />
           <Route path="/user"     element={<UserProfile />} />
+          {/* <Route path="test"      element={} /> */}
         </Routes>
       </BrowserRouter>
     </div>
