@@ -8,7 +8,7 @@ const signin = async (e,email,password) => {
     }
 }
 
-export const signup = async (e,forwho,name,dob,email,password,district,caste,maritalStatus,gender,occupation,image) => {
+export const signup = async (e,forwho,name,dob,email,password,district,caste,maritalStatus,gender,occupation) => {
     try {
         const { user } = await auth.createUserWithEmailAndPassword(email, password);
         if (user) {
@@ -22,7 +22,7 @@ export const signup = async (e,forwho,name,dob,email,password,district,caste,mar
                 DoB: dob,
                 District: district,
                 Occupation: occupation,
-                Image: image
+                
             });
             
         }

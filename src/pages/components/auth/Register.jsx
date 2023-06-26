@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import { signup } from './dbmanager';
 import { Link } from 'react-router-dom';
 import { Card } from 'react-bootstrap';
+import { storage } from '../../../firebase';
+
 
 function Register() {
   const navigate = useNavigate();
@@ -74,17 +76,51 @@ function Register() {
       return;
     }
 
-    signup(e, forwho, name, dob, email, password, district, caste, maritalStatus, gender, occupation,image);
+    signup(e, forwho, name, dob, email, password, district, caste, maritalStatus, gender, occupation);
     localStorage.setItem("email",email);
+    handleImageChange(e)
     navigate('/home');
     
   };
   
-  const handleImageUpload = (event) => {
-    const file = event.target.files[0];
-    setSelectedImage(file);
-    setImage(file);
+
+  const handleImageUpload = () => {
+    if (selectedImage) {
+      const user = name; // Function to get the current user's information
+      if (user) {
+        const userId = user.uid; // Assuming the user object has a unique identifier (uid)
+        const uploadTask = storage
+          .ref(`users/${userId}/images/${selectedImage.name}`)
+          .put(selectedImage);
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            console.log(snapshot)
+          },
+          (error) => {
+            console.log(error)
+          },
+          () => {
+            // Image uploaded successfully
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+              // Access the download URL of the image
+              console.log('Image URL:', downloadURL);
+            });
+          }
+        );
+      }
+    }
   };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setSelectedImage(file);
+  };
+  // const handleImageUpload = (event) => {
+  //   const file = event.target.files[0];
+  //   setSelectedImage(file);
+  //   setImage(file);
+  // };
 
   return (
     <div>
