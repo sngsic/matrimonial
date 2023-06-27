@@ -94,8 +94,7 @@ function Register() {
   const handleImageUpload = (callback) => {
     if (selectedImage) {
       const storageRef = firebase.storage().ref();
-      let folder = {email} + "profile-pic";
-      const imagesRef = storageRef.child(folder);
+      const imagesRef = storageRef.child(email);
 
       const uploadTask = imagesRef.child(selectedImage.name).put(selectedImage);
 

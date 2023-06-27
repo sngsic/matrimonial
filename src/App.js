@@ -28,9 +28,9 @@ function App() {
     <div className="App">
         <BrowserRouter>
         <Routes>
-          <Route path='/login'    element={!authUser ? <Login /> : <Home />}  />
-          <Route path="/"         element={!authUser ? <Login /> : <Home />} />
-          <Route path="/register" element={!authUser ? <Register /> : <Home />} />
+          <Route path='/login'    element={!authUser ? <Login /> : <Profile />}  />
+          <Route path="/"         element={!authUser ? <Login /> : <Profile />} />
+          <Route path="/register" element={!authUser ? <Register /> : <Profile />} />
           <Route path="/home"     element={<Home />} />
           <Route path="/about"    element={<About />} />
           <Route path="/profiles" element={<Profile />} />

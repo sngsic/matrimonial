@@ -32,3 +32,10 @@ form button{
     background-color: #62a7e9;
     color:#eee;
 }
+
+.card img {
+    max-width: 70%;
+    margin-top:10%;
+    /* max-height: fit-content; */
+    margin-top: inherit;
+}

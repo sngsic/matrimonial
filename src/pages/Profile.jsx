@@ -17,7 +17,7 @@ function Profile() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const snapshot = await firebase.firestore().collection("users").get();
+                const snapshot = await firebase.firestore().collection("user-details").get();
                 const profiles = snapshot.docs.map(doc => doc.data());
                 setData(profiles);
             } catch (error) {

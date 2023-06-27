@@ -1,4 +1,5 @@
-import { auth, firestore } from "../../../firebase.js"
+import { auth, firestore } from "../../../firebase.js";
+
 const signin = async (e,email,password) => {
     e.preventDefault();
     try{
@@ -32,21 +33,21 @@ export const signup = async (e,forwho,name,dob,email,password,district,caste,mar
 }
 
 export default signin;
-// export const getUserDataByEmail = async (email) => {
-//     try {
-//         const querySnapshot = await firestore.collection('users').where('email', '==', email).get();
-//         console.log(querySnapshot)
-//         if (!querySnapshot.empty) {
-//             const userData = querySnapshot.docs[0].data();
-//             const name = userData.name; // Retrieve the name from the userData object
-//             return name;
-//         }
+export const getUserDataByEmail = async (email) => {
+    try {
+        const querySnapshot = await firestore.collection('user-details').where('email', '==', email).get();
+        console.log(querySnapshot)
+        if (!querySnapshot.empty) {
+            const userData = querySnapshot.docs[0].data();
+            const name = userData.name; // Retrieve the name from the userData object
+            return name;
+        }
 
-//         return null; // User not found
-//     } catch (error) {
-//         throw new Error('Failed to fetch user data.');
-//     }
-// };
+        return null; // User not found
+    } catch (error) {
+        throw new Error('Failed to fetch user data.');
+    }
+};
 
 
 
