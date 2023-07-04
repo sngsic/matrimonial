@@ -63,22 +63,25 @@ function Profile() {
 
             <div className='profile-list'>
                 {data.map((profile) => (
-                    <Card  className="profile-container" onClick={handleprofileclick}>
-                        <Card.Img className="rounded-circle" variant="top" src={profile.DownloadURL || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"} /> 
-                        <Card.Body >
-                            <Card.Title style={{ padding: '5px' }}>Reg.No:</Card.Title>
-                            <hr />
-                            <Card.Text className='profile-content' style={{ padding: '5px' }}>
-                                Name          : {profile.Name} <br />
-                                Age           : {calculateAge(profile.DoB)}<br />
-                                Status        : {profile.MartialStatus}<br />
-                                Occupation    : {profile.Occupation}<br />
-                                District      : {profile.District}
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
+                    <div className="profile-container" onClick={handleprofileclick} key={profile.id}>
+                        <div className="profile-image">
+                            <img
+                                className="rounded-circle"
+                                src={profile.DownloadURL || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"}
+                                alt="Profile"
+                            />
+                        </div>
+                        <div className="profile-details">
+                            <h5 className="profile-name">{profile.Name}</h5>
+                            <p className="profile-info">Age: {calculateAge(profile.DoB)}</p>
+                            <p className="profile-info">Status: {profile.MartialStatus}</p>
+                            <p className="profile-info">Occupation: {profile.Occupation}</p>
+                            <p className="profile-info">District: {profile.District}</p>
+                        </div>
+                    </div>
                 ))}
             </div>
+
 
             {/* <Footer title="&copy;SBSY" /> */}
         </div>

@@ -1,21 +1,22 @@
 import React, { useState, useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
-import "./components/cssfiles/proimg.css";
+import "./components/cssfiles/userprofile.css";
 import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import Image from 'react-bootstrap/Image';
 import NaviBar from './components/NaviBar';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Header from "./components/Header";
 import firebase from "../firebase";
-
+import "bootstrap/dist/css/bootstrap.css";
 
 function UserProfile() {
-  // const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [userinfo, setUserInfo] = useState({});
-  const [inputValues, setInputValues] = useState({}); // Add state to store input field values
+  const [inputValues, setInputValues] = useState({});
+  const [image, setImage] = useState(null);
+  const [newImage, setNewImage] = useState(null);
+  const [updateStatus, setUpdateStatus] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,7 +28,7 @@ function UserProfile() {
           data = doc.data();
         });
         setUserInfo(data);
-        setInputValues(data); // Set the initial input field values to the user data
+        setInputValues(data);
         setLoading(false);
       } catch (error) {
         console.log("Error fetching data:", error);
@@ -37,56 +38,81 @@ function UserProfile() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    if (updateStatus) {
+      const updateUserProfile = async () => {
+        try {
+          const email = localStorage.getItem('email');
+          const userRef = firebase.firestore().collection('user-details').where('Email', '==', email);
+
+          if (newImage) {
+            const storageRef = firebase.storage().ref();
+            const fileRef = storageRef.child(`${email}/profile-image`);
+
+            // Replace the existing image with the new one
+            await fileRef.put(newImage);
+
+            const downloadURL = await fileRef.getDownloadURL();
+
+            // Update the image URL in the database
+            userRef.get().then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                doc.ref.update({
+                  DownloadURL: downloadURL,
+                });
+              });
+            });
+
+            setUserInfo((prevState) => ({
+              ...prevState,
+              DownloadURL: downloadURL,
+            }));
+          }
+
+          // Update other input values in the database
+          userRef.get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              doc.ref.update(inputValues);
+            });
+          });
+
+          setUserInfo(inputValues);
+
+          // Show success message
+          alert('Changes Saved');
+        } catch (error) {
+          // Handle the error
+          alert('Error updating data:', error);
+        }
+
+        setUpdateStatus(false);
+      };
+
+      updateUserProfile();
+    }
+  }, [updateStatus, inputValues, newImage]);
+
   const handleInputChange = (e) => {
-    setInputValues({
-      ...inputValues,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.name === 'image') {
+      setNewImage(e.target.files[0]);
+      // Update the image tag preview (optional)
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    } else {
+      setInputValues((prevInputValues) => ({
+        ...prevInputValues,
+        [e.target.name]: e.target.value,
+      }));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Check if input field values match the values in userData
-    let valuesMatch = true;
-    for (const key in inputValues) {
-      if (inputValues[key] !== userinfo[key]) {
-        valuesMatch = false;
-        break;
-      }
-    }
-
-    if (valuesMatch) {
-      // document.getElementById("user-form").setAttribute("disabled","true");
-      // document.getElementById("submit-btn").style.display = 'none';
-      // document.getElementById("edit-btn").style.display = '';
-      alert("Nochanges. Data saved");
-      
-    } else {
-      try {
-        const email = localStorage.getItem('email');
-        firebase.firestore().collection("user-details").where("Email", "==", email).get().then((querySnapshot) => {
-          querySnapshot.forEach((doc) => {
-            doc.ref.update(inputValues);
-          });
-        });
-        setUserInfo(inputValues);
-        // document.getElementById("user-form").setAttribute("disabled", "true")
-        // document.getElementById("submit-btn").style.display = 'none';
-        // document.getElementById("edit-btn").style.display = '';
-        alert("Database updated successfully");
-      } catch (error) {
-        alert("Error updating database:", error);
-      }
-    }
-    
+    setUpdateStatus(true);
   };
-
-  function doEdit(){
-    // document.getElementById("submit-btn").style.display = "";
-    // document.getElementById("edit-btn").style.display = "none";
-    // document.getElementById("name").setAttribute("disabled", "false")
-  }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -100,27 +126,21 @@ function UserProfile() {
         <div className="container">
           <Form id='user-form' onSubmit={handleSubmit}>
             <Row>
-              <Card>
-                <Card.Body>
-                  <Card.Img className="myimg container" variant="top" src={userinfo.DownloadURL} />
-                  <Form.Group controlId="formFile" className="mb-3">
-                    <Form.Label>Upload Image</Form.Label>
-                    <Form.Control type="file" accept="image/*" />
-                  </Form.Group>
-                </Card.Body>
-              </Card>
+              <Image className='rounded-circle img-fluid profile-img' variant='top' src={newImage ? URL.createObjectURL(newImage) : userinfo.DownloadURL} />
+              <Form.Group controlId="formFile" className="mb-3">
+                <Form.Label>Upload Image</Form.Label>
+                <Form.Control type="file" accept="image/*" name='image' onChange={handleInputChange} />
+              </Form.Group>
             </Row>
             <br />
 
-
-
-            <Form.Group as={Row}  className="mb-3" controlId="">
+            <Form.Group as={Row} className="mb-3" controlId="">
               <Form.Label column sm={2}>Name</Form.Label>
               <Col sm={10}>
                 <Form.Control
                   type='text'
                   name="Name"
-                  value={inputValues.Name}
+                  value={inputValues.Name || ''}
                   onChange={handleInputChange}
                 />
               </Col>
@@ -132,7 +152,7 @@ function UserProfile() {
                 <Form.Control
                   type='text'
                   name="Gender"
-                  value={inputValues.Gender}
+                  value={inputValues.Gender || ''}
                   onChange={handleInputChange}
                 />
               </Col>
@@ -142,9 +162,9 @@ function UserProfile() {
               <Form.Label column sm={2}>DoB</Form.Label>
               <Col sm={10}>
                 <Form.Control
-                  type='text'
+                  type='date'
                   name="DoB"
-                  value={inputValues.DoB}
+                  value={inputValues.DoB || ''}
                   onChange={handleInputChange}
                 />
               </Col>
@@ -156,7 +176,7 @@ function UserProfile() {
                 <Form.Control
                   type='text'
                   name="Occupation"
-                  value={inputValues.Occupation}
+                  value={inputValues.Occupation || ''}
                   onChange={handleInputChange}
                 />
               </Col>
@@ -168,7 +188,7 @@ function UserProfile() {
                 <Form.Control
                   type='text'
                   name="Caste"
-                  value={inputValues.Caste}
+                  value={inputValues.Caste || ''}
                   onChange={handleInputChange}
                 />
               </Col>
@@ -180,8 +200,9 @@ function UserProfile() {
                 <Form.Control
                   type='text'
                   name="Email"
-                  value={inputValues.Email}
+                  value={inputValues.Email || ''}
                   onChange={handleInputChange}
+                  disabled
                 />
               </Col>
             </Form.Group>
@@ -192,14 +213,13 @@ function UserProfile() {
                 <Form.Control
                   type='text'
                   name="District"
-                  value={inputValues.District}
+                  value={inputValues.District || ''}
                   onChange={handleInputChange}
                 />
               </Col>
             </Form.Group>
 
-            <Button id='submit-btn' style={{display:"none"}}type="submit">Save</Button>
-            {/* <Button id="edit-btn" onClick={doEdit}>Edit</Button> */}
+            <Button type="submit">Save</Button>
           </Form>
         </div>
       </div>
@@ -208,3 +228,4 @@ function UserProfile() {
 }
 
 export default UserProfile;
+

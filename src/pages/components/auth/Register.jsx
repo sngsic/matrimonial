@@ -5,10 +5,10 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import NaviBar from "../NaviBar"
 import Header from "../Header";
-import { useNavigate } from 'react-router-dom';
+import { matchRoutes, useNavigate } from 'react-router-dom';
 import { signup } from './dbmanager';
 import { Link } from 'react-router-dom';
-import { Card } from 'react-bootstrap';
+import { Image } from 'react-bootstrap';
 import firebase from '../../../firebase';
 import "firebase/storage"
 
@@ -24,9 +24,10 @@ function Register() {
   const [caste, setCaste] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [district, setDistrict] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -40,9 +41,11 @@ function Register() {
       caste.trim() === '' ||
       email.trim() === '' ||
       password.trim() === '' ||
+      confirmPassword.trim() === '' ||
       district.trim() === ''
     ) {
       alert('Please fill in all the fields.');
+      console.log(forwho,name,gender,dob,maritalStatus,occupation,caste,email,password,confirmPassword,district)
       return;
     }
 
@@ -58,6 +61,11 @@ function Register() {
     }
     if (name.trim().length < 2) {
       alert('Name should be at least 2 characters long.');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert('Create password and Confirm password should match.');
       return;
     }
 
@@ -111,7 +119,7 @@ function Register() {
           // Handle successful uploads on complete
           // The uploaded image can now be accessed using its download URL
           uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-            console.log('File available at', downloadURL);
+            // console.log('File available at', downloadURL);
             callback(downloadURL);
           });
         }
@@ -133,16 +141,14 @@ function Register() {
           <br />
           <h3>Register</h3>
           <br />
-          <Row>
-            <Card>
-              <Card.Body>
-                <Card.Img className="myimg container" variant="rounded" src={selectedImage ? URL.createObjectURL(selectedImage) : ""} />
-                <Form.Group controlId="formFile" className="mb-3">
-                  <Form.Label>Upload Image</Form.Label>
-                  <Form.Control type="file" accept="image/*" onChange={handleImageSelect} />
-                </Form.Group>
-              </Card.Body>
-            </Card>
+          <Row className='form-border'>
+            <Form.Group>
+              <Image className="rounded-circle profile-img" variant="rounded" src={selectedImage ? URL.createObjectURL(selectedImage) : ""} />
+              <Form.Group controlId="formFile" className="mb-3">
+                <Form.Label className='custom-file-label'>Upload Image</Form.Label>
+                <Form.Control type="file" accept="image/*" onChange={handleImageSelect} />
+              </Form.Group>
+            </Form.Group>
           </Row>
           <Row className="mb-3">
             <Form.Group as={Col} md="4" controlId="validationCustom02">
@@ -151,8 +157,8 @@ function Register() {
             </Form.Group>
             <Form.Group as={Col} md="4" controlId="validationCustom01">
               <Form.Label>For</Form.Label>
-              <Form.Select value={forwho} defaultValue="Choose..." onChange={(e) => setForwho(e.target.value)}>
-                <option>--SELECT--</option>
+              <Form.Select value={forwho} defaultValue="Select" onChange={(e) => setForwho(e.target.value)}>
+                <option>Select</option>
                 <option>Myself</option>
                 <option>Daughter</option>
                 <option>Son</option>
@@ -163,10 +169,11 @@ function Register() {
 
             <Form.Group as={Col} md="4" controlId="validationCustomUsername">
               <Form.Label>Gender</Form.Label>
-              <Form.Select required defaultValue="Choose..." onChange={(e) => setGender(e.target.value)}>
-                <option>--SELECT--</option>
+              <Form.Select required defaultValue="Select" onChange={(e) => setGender(e.target.value)}>
+                <option>Select</option>
                 <option>Male</option>
                 <option>Female</option>
+                <option>Other</option>
               </Form.Select>
             </Form.Group>
           </Row>
@@ -191,56 +198,60 @@ function Register() {
             </Form.Group>
             <Form.Group as={Col} md="4" controlId="validationCustom01">
               <Form.Label>Marital Status</Form.Label>
-              <Form.Select required defaultValue="Choose..." onChange={(e) => setMaritalStatus(e.target.value)}>
-                <option>--SELECT--</option>
+              <Form.Select required defaultValue="Unmarried" onChange={(e) => setMaritalStatus(e.target.value)}>
+                <option>Unmarried</option>
                 <option>Divorced</option>
                 <option>Widowed</option>
-                <option>Un-Married</option>
+
               </Form.Select>
             </Form.Group>
             <Form.Group as={Col} md="4" controlId="validationCustomUsername">
               <Form.Label>Caste</Form.Label>
-              <Form.Select required defaultValue="Choose..." onChange={(e) => setCaste(e.target.value)}>
-                <option>--SELECT--</option>
-                <option>Prefer Not to Say</option>
-                <option>Ezhava</option>
-                <option>Thiyya</option>
-              </Form.Select>
+              <Form.Control required onChange={(e) => setCaste(e.target.value)} />
             </Form.Group>
           </Row>
-          <br /><hr />
-          <Row>
+          <br />
+          {/* <hr /> */}
+          
+          <Row className='form-border'>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control required type="email" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>Create Password</Form.Label>
               <Form.Control required type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Confirm Password</Form.Label>
+              <Form.Control required type="password" placeholder="Password" onChange={(e) => setConfirmPassword(e.target.value)} />
             </Form.Group>
             <Form.Text className="text-muted">
               We'll never share your email with anyone else.
             </Form.Text>
+          
+            <Form.Group className="mb-3 form-check-label">
+              <Form.Check
+                required
+                label="I agree to the terms and conditions"
+                feedback="You must agree before submitting."
+                feedbackType="invalid"
+              />
+            </Form.Group>
           </Row>
-          <Form.Group className="mb-3">
-            <Form.Label>
-              I agree to the terms and conditions
-              <Form.Check required feedback="You must agree before submitting." feedbackType="invalid" />
-            </Form.Label>
-          </Form.Group>
-          <hr />
+
+          {/* <hr /> */}
           <Button type="submit">Register Now</Button><br />
-          <p>Already have an account? <Link style={{textDecoration : "none"}} to="/login">Login</Link></p>
+          <p>Already have an account? <Link style={{ textDecoration: "none" }} to="/login">Login</Link></p>
         </Form>
       </div>
       <br />
       <br />
       <hr />
-      
+
       {/* <Footer title="&copy;SBSY" /> */}
     </div>
   );
 }
 
 export default Register;
-

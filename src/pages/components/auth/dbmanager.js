@@ -4,6 +4,7 @@ const signin = async (e,email,password) => {
     e.preventDefault();
     try{
         await auth.signInWithEmailAndPassword(email,password);
+        alert("Signed In");
     }catch{
         alert("Invalid credentials");
     }
@@ -25,7 +26,7 @@ export const signup = async (e,forwho,name,dob,email,password,district,caste,mar
                 Occupation: occupation,
                 DownloadURL:downloadurl
             });
-            
+            alert("Sign Up Successfull");
         }
     } catch (error) {
         alert(error.message);
@@ -33,6 +34,8 @@ export const signup = async (e,forwho,name,dob,email,password,district,caste,mar
 }
 
 export default signin;
+
+
 export const getUserDataByEmail = async (email) => {
     try {
         const querySnapshot = await firestore.collection('user-details').where('email', '==', email).get();
