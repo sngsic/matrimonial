@@ -1,19 +1,20 @@
-.profile-img {
-  width: 400px;
-  height: 400px;
+.profile-pic {
+  width: 350px;
+  height: 350px;
   min-width: 350px;
   min-height: 350px;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   border-radius: 50%;
+  display: flex;
+  margin: 0 auto;
 }
 
-.text-main {
-  margin-left: -133px;
-  font-size: 1rem;
+.pic-container {
+  border:2px solid;
+  padding: 20px;
 }
 
-.text-sec {
-  margin-left: 76px;
-  margin-top: -37px;
+.container {
+  padding: 50px;
 }

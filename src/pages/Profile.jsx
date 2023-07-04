@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Header from "./components/Header";
 import NaviBar from "./components/NaviBar";
-import { Card } from "react-bootstrap";
 import "./components/cssfiles/profiles.css";
 import "./components/cssfiles/footer.css";
 import firebase from '../firebase';
@@ -64,13 +63,14 @@ function Profile() {
             <div className='profile-list'>
                 {data.map((profile) => (
                     <div className="profile-container" onClick={handleprofileclick} key={profile.id}>
-                        <div className="profile-image">
+                        <div className="profile-image-container">
                             <img
-                                className="rounded-circle"
+                                className="rounded-circle profile-image"
                                 src={profile.DownloadURL || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8dXNlcnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60"}
                                 alt="Profile"
                             />
                         </div>
+                        <hr />
                         <div className="profile-details">
                             <h5 className="profile-name">{profile.Name}</h5>
                             <p className="profile-info">Age: {calculateAge(profile.DoB)}</p>

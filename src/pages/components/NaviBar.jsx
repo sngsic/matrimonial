@@ -44,17 +44,17 @@ function NaviBar() {
                         {authUser ?
                         <>
                             <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
-                                <Container>
-                                    <Navbar.Brand href="/user">
+                                <Nav.Link>
+                                    {/* <Navbar.Brand href="/user"> */}
                                         <img
                                             src="https://cdn3.iconfinder.com/data/icons/user-interface-2343/256/profile_photo.png"
                                             width="30"
                                             height="30"
                                             className="d-inline-block align-top"
                                             alt="React Bootstrap logo"
-                                        />
-                                    </Navbar.Brand>
-                                </Container>
+                                        />Profile
+                                    {/* </Navbar.Brand> */}
+                                </Nav.Link>
                         </>
                             :
                             <>

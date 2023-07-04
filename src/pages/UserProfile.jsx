@@ -17,6 +17,7 @@ function UserProfile() {
   const [image, setImage] = useState(null);
   const [newImage, setNewImage] = useState(null);
   const [updateStatus, setUpdateStatus] = useState(false);
+  const [isDisabled,setIsDisabled] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -86,6 +87,7 @@ function UserProfile() {
         }
 
         setUpdateStatus(false);
+        setIsDisabled(true);
       };
 
       updateUserProfile();
@@ -118,6 +120,16 @@ function UserProfile() {
     return <div>Loading...</div>;
   }
 
+  function disableEdit(){
+    document.getElementById('save-btn').style.display = 'none';
+    document.getElementById('edit-btn').style.display = '';
+  }
+  function allowEdit(){
+    setIsDisabled(false);
+    document.getElementById('save-btn').style.display = '';
+    document.getElementById('edit-btn').style.display = 'none';
+  }
+
   return (
     <div>
       <Header title="Home" />
@@ -125,11 +137,11 @@ function UserProfile() {
       <div>
         <div className="container">
           <Form id='user-form' onSubmit={handleSubmit}>
-            <Row>
-              <Image className='rounded-circle img-fluid profile-img' variant='top' src={newImage ? URL.createObjectURL(newImage) : userinfo.DownloadURL} />
+            <Row className='pic-container'>
+              <Image className='rounded-circle img-fluid profile-pic' variant='top' src={newImage ? URL.createObjectURL(newImage) : userinfo.DownloadURL} />
               <Form.Group controlId="formFile" className="mb-3">
                 <Form.Label>Upload Image</Form.Label>
-                <Form.Control type="file" accept="image/*" name='image' onChange={handleInputChange} />
+                <Form.Control disabled={isDisabled} type="file" accept="image/*" name='image' onChange={handleInputChange} />
               </Form.Group>
             </Row>
             <br />
@@ -140,6 +152,7 @@ function UserProfile() {
                 <Form.Control
                   type='text'
                   name="Name"
+                  disabled={isDisabled}
                   value={inputValues.Name || ''}
                   onChange={handleInputChange}
                 />
@@ -152,6 +165,7 @@ function UserProfile() {
                 <Form.Control
                   type='text'
                   name="Gender"
+                  disabled={isDisabled}
                   value={inputValues.Gender || ''}
                   onChange={handleInputChange}
                 />
@@ -164,6 +178,7 @@ function UserProfile() {
                 <Form.Control
                   type='date'
                   name="DoB"
+                  disabled={isDisabled}
                   value={inputValues.DoB || ''}
                   onChange={handleInputChange}
                 />
@@ -176,6 +191,7 @@ function UserProfile() {
                 <Form.Control
                   type='text'
                   name="Occupation"
+                  disabled={isDisabled}
                   value={inputValues.Occupation || ''}
                   onChange={handleInputChange}
                 />
@@ -188,6 +204,7 @@ function UserProfile() {
                 <Form.Control
                   type='text'
                   name="Caste"
+                  disabled={isDisabled}
                   value={inputValues.Caste || ''}
                   onChange={handleInputChange}
                 />
@@ -213,13 +230,15 @@ function UserProfile() {
                 <Form.Control
                   type='text'
                   name="District"
+                  disabled={isDisabled}
                   value={inputValues.District || ''}
                   onChange={handleInputChange}
                 />
               </Col>
             </Form.Group>
 
-            <Button type="submit">Save</Button>
+            <Button type="submit" id='save-btn' disabled={isDisabled} style={{display:'none'}}>Save</Button>
+            <Button onClick={allowEdit}  id='edit-btn'  >Edit</Button>
           </Form>
         </div>
       </div>

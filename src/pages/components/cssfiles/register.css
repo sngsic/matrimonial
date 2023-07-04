@@ -53,43 +53,43 @@ form button {
 }
 
 .custom-file-input {
-    display: none;
+  display: none;
 }
 
 .custom-file-label::after {
-    content: 'Browse';
+  content: 'Browse';
 }
 
-.custom-file-input:focus~.custom-file-label::after {
-    border-color: #62a7e9;
-    box-shadow: 0 0 0 0.2rem rgba(98, 167, 233, 0.25);
+.custom-file-input:focus ~ .custom-file-label::after {
+  border-color: #62a7e9;
+  box-shadow: 0 0 0 0.2rem rgba(98, 167, 233, 0.25);
 }
 
 .custom-file-label::after {
-    transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .custom-file-input:lang(en)~.custom-file-label::after {
-    content: 'Browse';
+  content: 'Browse';
 }
 
 .custom-file-input~.custom-file-label {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .custom-file-input~.custom-file-label::after {
-    content: 'Choose File';
-    display: inline-block;
-    padding: 0.375rem 0.75rem;
-    border-radius: 0.25rem;
-    background-color: #62a7e9;
-    color: #fff;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  content: 'Choose File';
+  display: inline-block;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+  background-color: #62a7e9;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .custom-file-input~.custom-file-label:hover::after {
-    background-color: #5b97db;
+  background-color: #5b97db;
 }
